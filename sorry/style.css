@@ -18,7 +18,7 @@ backface-visibility:hidden ;}
 .w{height:400px;
 width:300px;
 backface-visibility:hidden ;
-transition-duration:2s;
+transition-duration:1s;
 font-size:20px;
 background-color:#20262e;
 border-radius:10px;
@@ -27,7 +27,7 @@ margin:20px;
 box-shadow:5px 5px 5px 0px;
 text-align:center ;
 transform:rotateY(180deg);}
-.q{perspective:600px;
+.q{perspective:900px;
 
 }
 .q:hover .a{transform: rotateY(180deg);
@@ -38,7 +38,8 @@ width:280px;
 background-color:#fefefe;
 margin:10px;
 border-radius:10px;}
-.p{font-size:40px;
+
+.p{font-size:35px;
 }
-footer{text-align:right;}
+footer{text-align:center;}
 .f{display:float;}
